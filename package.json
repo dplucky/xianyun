@@ -15,5 +15,8 @@
     "element-ui": "^2.4.11",
     "@nuxtjs/axios": "^5.3.6"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0"
+  }
 }
