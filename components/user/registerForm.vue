@@ -5,7 +5,10 @@
     :rules="rules"
     class="form"
   >
-    <el-form-item class="form-item">
+    <el-form-item
+      class="form-item"
+      prop="username"
+    >
       <el-input
         v-model="form.username"
         placeholder="用户名手机"
@@ -13,7 +16,10 @@
       </el-input>
     </el-form-item>
 
-    <el-form-item class="form-item">
+    <el-form-item
+      class="form-item"
+      prop="captcha"
+    >
       <el-input
         v-model="form.captcha"
         placeholder="验证码"
@@ -26,7 +32,10 @@
       </el-input>
     </el-form-item>
 
-    <el-form-item class="form-item">
+    <el-form-item
+      class="form-item"
+      prop="nickname"
+    >
       <el-input
         v-model="form.nickname"
         placeholder="昵称"
@@ -34,7 +43,10 @@
       </el-input>
     </el-form-item>
 
-    <el-form-item class="form-item">
+    <el-form-item
+      class="form-item"
+      prop="password"
+    >
       <el-input
         v-model="form.password"
         placeholder="密码"
@@ -42,7 +54,10 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item class="form-item">
+    <el-form-item
+      class="form-item"
+      prop="checkPassword"
+    >
       <el-input
         v-model="form.checkPassword"
         placeholder="确认密码"
@@ -64,6 +79,21 @@
 <script>
 export default {
   data() {
+    //   确认密码的校验的方法
+    // rule:当前的规则,一般是用不上这个参数
+    // value:输入框的值
+    // callback:回调的函数,该函数必须要调用,调用的时候可以传递错误的对象信息
+    var validatePass = (rule, value, callback) => {
+      if (value === '') {
+        // new Error js原生的错误对象
+        callback(new Error('请在此输入密码'));
+      } else if (value !== this.form.password) {
+        callback(new Error('两次输入密码不一致!'));
+      } else {
+        //通过验证
+        callback()
+      }
+    }
     return {
       // 表单数据
       form: {
@@ -74,7 +104,23 @@ export default {
         checkPassword: ""// 确认密码
       },
       // 表单规则
-      rules: {},
+      rules: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+        ],
+        nickname: [
+          { required: true, message: '请输入昵称', trigger: 'blur' }
+        ],
+        captcha: [
+          { required: true, message: '请输入验证码', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' }
+        ],
+        checkPassword: [
+          { validator: validatePass, trigger: 'blur' }
+        ],
+      },
     }
   },
   methods: {
@@ -83,7 +129,11 @@ export default {
     },
     // 注册
     handleRegSubmit() {
-      console.log(this.form)
+      this.$refs.form.validate(async valid=>{
+          if(valid){
+            //   请求注册的接口
+          }
+      })
     }
   }
 }
