@@ -83,7 +83,8 @@ export default {
         }
       ],
       // tab栏的索引
-      current: 0
+      current: 0,
+      searchValue: "",
     }
   },
   async mounted() {
