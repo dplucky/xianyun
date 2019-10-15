@@ -42,7 +42,7 @@ import RegisterForm from "@/components/user/registerForm"
 export default {
   data() {
     return {
-      current: 1,
+      current: 0,
       list: ['登录', '注册']
     }
   },
