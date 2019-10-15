@@ -28,5 +28,15 @@ export const actions = {
       store.commit("setUserInfo", res.data);
     }
     return res;
+  },
+  async sendCaptcha(store, tel) {
+    const res = await this.$axios({
+      url: "/captchas",
+      method: 'POST',
+      data: {
+        tel //手机号码
+      }
+    });
+    return res
   }
 }
